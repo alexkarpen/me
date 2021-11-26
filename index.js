@@ -7,6 +7,7 @@ const chalk = require("chalk");
 const inquirer = require("inquirer");
 const clear = require("clear");
 const open = require("open");
+const qrcode = require('qrcode-terminal');
 
 clear();
 
@@ -20,6 +21,13 @@ const questions = [
         message: "What you want to do?/Τι θέλετε να κάνετε;",
         choices: [
             {
+                name: `Personal website`,
+                value: () => {
+                    open("https://alexkarpen.com");
+                    console.log("\nDone, see you soon/Ευχαριστώ!\n");
+                }
+            },
+            {
                 name: `Send me an ${chalk.green.bold("email")}?/Αποστολή  ${chalk.blue.bold("email")}`,
                 value: () => {
                     open("mailto:alexkarpen@gmail.com");
@@ -29,7 +37,7 @@ const questions = [
             {
                 name: "Just quit/Τίποτα",
                 value: () => {
-                    console.log("Good Bye!\n/Καλή συνέχεια!\n");
+                    console.log("Good Bye!\nΚαλή συνέχεια!\n");
                 }
             }
         ]
@@ -38,7 +46,7 @@ const questions = [
 
 // Data for the card
 const data = {
-    name: chalk.bold.green("        Alexandros Karpenisiotis"),
+    name: chalk.hex("#ED8034").bold("        Alexandros Karpenisiotis"),
     work: `${chalk.white("Senior Frontend Web Developer")} ${chalk
         .hex("#ED8034")
         .bold("Hyperstack")}`,
@@ -70,14 +78,14 @@ const me = boxen(
             "If it is possible, i can do it... i think!"
         )}`,
         `${chalk.italic("You can serve your curiosity by contacting me!")}`,
-        `${chalk.italic("Το εξήγησα στα Αγγλικά!")}`
+        `${chalk.italic("Το εξήγησα στα Αγγλικά!")}`,
     ].join("\n"),
     {
-        margin: 4,
+        margin: 2,
         float: 'center',
-        padding: 1,
-        borderStyle: "single",
-        borderColor: "green"
+        padding: 2,
+        borderStyle: "round",
+        borderColor: "#ED8034",
     }
 );
 
@@ -94,6 +102,7 @@ const tip = [
 
 // Show the tip 
 console.log(tip);
+
 
 // Ask the Inquirer questions. 
 prompt(questions).then(answer => answer.action());
